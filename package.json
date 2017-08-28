@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "build": "babel src/ --out-dir dist/",
-    "deploy": "npm run build && git push heroku master",
+    "deploy": "git push heroku master",
     "dev": "npm run build && node dist/app.js --DEV",
     "start": "node dist/app",
     "push": "git push -u origin master"
