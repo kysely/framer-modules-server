@@ -19,6 +19,10 @@ var _Response = require('../Response');
 
 var _Module = require('../queries/Module');
 
+var _JSONparser = require('../JSONparser');
+
+var _JSONparser2 = _interopRequireDefault(_JSONparser);
+
 var _uniqueName = require('../uniqueName');
 
 var _uniqueName2 = _interopRequireDefault(_uniqueName);
@@ -64,13 +68,20 @@ var checkModuleJSON = function checkModuleJSON(gitHubURL, callback) {
             return callback(errorResponse, null);
         }
 
-        var responseObject = {
-            module: JSON.parse(moduleString),
-            request: gitHubURL,
-            author: author, repo: repo, branch: branch
-        };
+        (0, _JSONparser2.default)(moduleString, function (err, parsedJSON) {
+            if (err) {
+                var _errorResponse = [].concat(_toConsumableArray(_Response.R.PARSE_FAIL), [err.message]);
+                return callback(_errorResponse, null);
+            }
 
-        return callback(null, responseObject);
+            var responseObject = {
+                module: parsedJSON,
+                request: gitHubURL,
+                author: author, repo: repo, branch: branch
+            };
+
+            return callback(null, responseObject);
+        });
     });
 };
 

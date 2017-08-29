@@ -3,6 +3,7 @@ import request from 'request'
 
 import { R, Response } from '../Response'
 import { moduleExists, findSingleModule, isValidModule, upsertSingleModule } from '../queries/Module'
+import JSONparser from '../JSONparser'
 import uniqueName from '../uniqueName'
 
 const explodeGitHubURL = gitHubURL => {
@@ -36,13 +37,20 @@ const checkModuleJSON = (gitHubURL, callback) => {
             return callback(errorResponse, null)
         }
 
-        const responseObject = {
-            module: JSON.parse(moduleString),
-            request: gitHubURL,
-            author, repo, branch
-        }
+        JSONparser(moduleString, (err, parsedJSON) => {
+            if (err) {
+                const errorResponse = [...R.PARSE_FAIL, err.message]
+                return callback(errorResponse, null)
+            }
 
-        return callback(null, responseObject)
+            const responseObject = {
+                module: parsedJSON,
+                request: gitHubURL,
+                author, repo, branch
+            }
+
+            return callback(null, responseObject)
+        })
     })
 
 }

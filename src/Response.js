@@ -7,6 +7,7 @@ const R = {
     _NULL_UA:   'Unknown User Agent',
     _NO_RES:    (resHandl, resObj) => ['Couldn\'t respond:', resHandl, '\nResponse:', resObj],
     JSON_FAIL:  'Sorry, but I couldn\'t find the \'module.json\' file',
+    PARSE_FAIL: [409, 'ERR'],
     NOT_FOUND:  [404, 'ERR', 'Not Found'],
     DUPL_OK:    [200, 'DUPL_OK', 'Module name is already taken, but allowed to update from the same author.'],
     DUPL_DENY:  [200, 'DUPL_DENY', 'Sorry, module name is already taken by someone else.'],

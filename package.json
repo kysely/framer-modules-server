@@ -1,6 +1,6 @@
 {
   "name": "framer-modules-server",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Small server for communication with the modules registry and data preprocessing",
   "main": "dist/app.js",
   "scripts": {
